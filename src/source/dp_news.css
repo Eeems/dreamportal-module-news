@@ -1,0 +1,21 @@
+/*
+	(c) Site News Module 2011 Dream Portal Team
+*/
+
+.dp_news .dp_dashed
+{
+	margin: 0.5em 0;
+}
+
+.dp_news img
+{
+	float: left;
+	padding-right: 8px;
+}
+
+.dp_news_avatar
+{
+	width: 45px;
+	height: 45px;
+}
+

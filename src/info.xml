@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<name>news</name>
+	<version>1.0</version>
+	<icon>cog.png</icon>
+	<file path="source/script.php">
+		<function><main>module_news</main></function>
+		<function>dp_boardNews</function>
+	</file>
+	<file path="source/dp_news.css" type="header" />
+	<target>_blank</target>
+	<url></url>
+	<languages>
+		<english>
+			<main>languages/english.php</main>
+			<utf8>languages/english-utf8.php</utf8>
+		</english>
+	</languages>
+	<param name="board" type="list_boards">1</param>
+	<param name="limit" type="int">5</param>
+</module>
