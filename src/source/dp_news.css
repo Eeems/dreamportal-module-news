@@ -9,8 +9,12 @@
 
 .dp_news img
 {
-	float: left;
 	padding-right: 8px;
+}
+
+.dp_news > img:nth-child(1)
+{
+	float:left;
 }
 
 .dp_news_avatar
