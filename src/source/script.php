@@ -30,7 +30,7 @@ function module_news($params)
 		{
 			echo '
 									<div class="dp_news">
-										<img src="', $settings['images_url'], '/on.png" alt="" />
+										<img class="dp_news_icon" src="', $settings['images_url'], '/on.png" alt="" />
 										<p>
 											<a href="', $news['href'], '"><strong>', $news['subject'], '</strong></a> ', $txt['by'], ' ', (!empty($modSettings['dp_color_members']) ? $news['color_poster'] : $news['poster']), '<br />
 											<span class="smalltext">', $news['time'], '</span>

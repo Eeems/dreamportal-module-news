@@ -12,7 +12,7 @@
 	padding-right: 8px;
 }
 
-.dp_news > img:nth-child(1)
+.dp_news > .dp_news_icon
 {
 	float:left;
 }
