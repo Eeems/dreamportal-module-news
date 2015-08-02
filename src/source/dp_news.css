@@ -4,22 +4,22 @@
 
 .dp_news .dp_dashed
 {
-        margin: 0.5em 0;
+	margin: 0.5em 0;
 }
 
 .dp_news_head img 
 {
-        float: left;
-        padding-right: 8px;
+	float: left;
+	padding-right: 8px;
 }
 
 .dp_news_head p        
 {
-        display:inline-block;
+	display:inline-block;
 }
 
 .dp_news_avatar
 {
-        width: 45px;
-        height: 45px;
+	width: 45px;
+	height: 45px;
 }
