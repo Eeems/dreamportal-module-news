@@ -7,13 +7,13 @@
 	margin: 0.5em 0;
 }
 
-.dp_news_head img 
+.dp_news_head > img 
 {
 	float: left;
 	padding-right: 8px;
 }
 
-.dp_news_head p        
+.dp_news_head > p        
 {
 	display:inline-block;
 }
