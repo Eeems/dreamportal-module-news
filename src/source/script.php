@@ -38,9 +38,8 @@ function module_news($params)
 											</p>
 										</div>';
 			echo parse_bbc($news['body']);
-			if (!empty($news['id_about'])){
-				echo '<hr/> <a href="?topic=',$news['id_about'] , ' ">Discuss this article ( ', $news['posts_about'] ,' )</a>';
-			}
+			echo '<hr/> <a href="?topic=',$news['id_about'] , ' ">Discuss this article ( ', $news['posts_about'] ,' )</a>';
+			
 			if(!$news['is_last']){
 				echo '
 										<div class="dp_dashed clear"><!-- // --></div>';
@@ -147,6 +146,7 @@ function dp_boardNews($board, $limit)
 				'is_last' => false
 			);}
 		else {
+			$posts=$smf_eeems->topic($row['id_topic'])->post_count;
 			$return[] = array(
 				'body'=>$row['body'],
 				'subject' => $row['subject'],
@@ -154,6 +154,8 @@ function dp_boardNews($board, $limit)
 				'href' => $scripturl . '?topic=' . $row['id_topic'] . '.0',
 				'poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['poster_name'] . '</a>' : $row['poster_name'],
 				'color_poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '"><span style="color: ' . $row['online_color'] . ';">' . $row['poster_name'] . '</span></a>' : $row['poster_name'],
+				'id_about'=>$row['id_topic'],
+				'posts_about'=>$posts,
 				'is_last' => false
 			);}
 		
