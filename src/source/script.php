@@ -38,7 +38,8 @@ function module_news($params)
 											</p>
 										</div>';
 			echo parse_bbc($news['body']);
-
+			echo '<hr/> <div = class="TA_Discuss smalltext"><a href="?topic=',$news['id_about'] , ' ">Discuss this article ( ', $news['posts_about'] ,' )</a></div>';
+			
 			if(!$news['is_last']){
 				echo '
 										<div class="dp_dashed clear"><!-- // --></div>';
@@ -59,7 +60,11 @@ function module_news($params)
 
 function dp_boardNews($board, $limit)
 {
-	global $scripturl, $smcFunc, $modSettings;
+	global $scripturl, $smcFunc, $modSettings,$smf_eeems,$boarddir,$db_prefix;
+	require_once($boarddir . '/SSI_eeems.php');
+
+	if(!($smf_eeems instanceof SMF))
+		$smf_eeems = new SMF();	
 
 	if (!loadLanguage('Stats'))
 		loadLanguage('Stats');
@@ -122,15 +127,38 @@ function dp_boardNews($board, $limit)
 
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
-		$return[] = array(
-			'body'=>$row['body'],
-			'subject' => $row['subject'],
-			'time' => timeformat($row['poster_time']),
-			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.0',
-			'poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['poster_name'] . '</a>' : $row['poster_name'],
-			'color_poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '"><span style="color: ' . $row['online_color'] . ';">' . $row['poster_name'] . '</span></a>' : $row['poster_name'],
-			'is_last' => false
-		);
+		$res = $smf_eeems->sql->query("
+			SELECT topic_about_id
+			FROM {$db_prefix}topic_articles
+			WHERE topic_article_id = ?
+			",'i',$row['id_topic'])->assoc_result;
+		if(!empty($res)){
+			 $posts=$smf_eeems->topic($res['topic_about_id'])->post_count;
+			$return[] = array(
+				'body'=>$row['body'],
+				'subject' => $row['subject'],
+				'time' => timeformat($row['poster_time']),
+				'href' => $scripturl . '?topic=' . $row['id_topic'] . '.0',
+				'poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['poster_name'] . '</a>' : $row['poster_name'],
+				'color_poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '"><span style="color: ' . $row['online_color'] . ';">' . $row['poster_name'] . '</span></a>' : $row['poster_name'],
+				'id_about'=>$res['topic_about_id'],
+				'posts_about'=>$posts,
+				'is_last' => false
+			);}
+		else {
+			$posts=$smf_eeems->topic($row['id_topic'])->post_count;
+			$return[] = array(
+				'body'=>$row['body'],
+				'subject' => $row['subject'],
+				'time' => timeformat($row['poster_time']),
+				'href' => $scripturl . '?topic=' . $row['id_topic'] . '.0',
+				'poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['poster_name'] . '</a>' : $row['poster_name'],
+				'color_poster' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '"><span style="color: ' . $row['online_color'] . ';">' . $row['poster_name'] . '</span></a>' : $row['poster_name'],
+				'id_about'=>$row['id_topic'],
+				'posts_about'=>$posts,
+				'is_last' => false
+			);}
+		
 	}
 
 	$smcFunc['db_free_result']($request);
