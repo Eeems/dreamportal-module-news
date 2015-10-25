@@ -38,7 +38,7 @@ function module_news($params)
 											</p>
 										</div>';
 			echo parse_bbc($news['body']);
-			echo '<hr/> <a href="?topic=',$news['id_about'] , ' ">Discuss this article ( ', $news['posts_about'] ,' )</a>';
+			echo '<hr/> <div = class="TA_Discuss smalltext"><a href="?topic=',$news['id_about'] , ' ">Discuss this article ( ', $news['posts_about'] ,' )</a></div>';
 			
 			if(!$news['is_last']){
 				echo '
